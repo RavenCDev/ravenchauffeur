@@ -1,0 +1,77 @@
+<header class="header header--sticky" id="top">
+  <div class="container nav nav--classic">
+    <a class="brand" href="/index.html" aria-label="Raven Chauffeur Ireland">
+      <img src="/assets/logo.png" alt="Raven Chauffeur Ireland" class="brand__logo brand__logo--classic" />
+    </a>
+
+    <!-- Desktop menu normal (fica igual como estava) -->
+    <nav class="nav__links nav__links--classic" aria-label="Primary">
+      <a href="/index.html#top">Welcome</a>
+      <a href="/pages/services.html">Services</a>
+      <a href="/index.html#fleet">Why Raven</a>
+      <a href="/index.html#contact">Contact</a>
+    </nav>
+
+    <div class="nav__right">
+      <!-- Desktop CTA normal -->
+      <a class="btn btn--outline js-reserve" href="/pages/contact.html">Reserve Now</a>
+
+      <!-- Desktop social normal -->
+      <div class="header__social">
+        <a href="https://www.instagram.com/ravenchauffeur" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">
+          <img src="/assets/icons/insta2.png" alt="Instagram">
+        </a>
+        <a href="https://wa.me/353877844783?text=Hello%20I%20would%20like%20information%20about%20Raven%20Chauffeur%20services" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-icon">
+          <img src="/assets/icons/whatsapp.png" alt="WhatsApp">
+        </a>
+      </div>
+
+      <!-- Mobile/Tablet hamburger -->
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect y="4" width="24" height="2" rx="1" fill="url(#gold)" />
+            <rect y="11" width="24" height="2" rx="1" fill="url(#gold)" />
+            <rect y="18" width="24" height="2" rx="1" fill="url(#gold)" />
+            <defs>
+              <linearGradient id="gold" x1="0" y1="0" x2="24" y2="0">
+                <stop stop-color="#f0d07a"/>
+                <stop offset="1" stop-color="#c9a44b"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </button>
+    </div>
+  </div>
+
+  <!-- OVERLAY MENU (igual ao exemplo) -->
+  <div class="menu-overlay" id="mobileMenu" aria-hidden="true">
+    <div class="menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+      <button class="menu-close" id="menuClose" aria-label="Close menu">✕</button>
+
+      <nav class="menu-links" aria-label="Mobile navigation">
+        <a href="/index.html#top">Welcome</a>
+        <a href="/pages/services.html">Services</a>
+        <a href="/pages/tours.html">Luxury Tours</a>
+        <a href="/pages/weddings.html">Weddings</a>
+        <a href="/pages/airport-transfers.html">Airport Transfers</a>
+        <a href="/pages/business-events.html">Business Events</a>
+        <a href="/pages/reviews.html">Review</a>
+        <a href="/index.html#fleet">Why Raven</a>
+        <a href="/pages/contact.html">Contact</a>
+      </nav>
+
+      <div class="menu-actions">
+        <a class="btn btn--outline w-full" href="/pages/contact.html">Reserve Now</a>
+
+        <div class="menu-social">
+          <a class="menu-icon" href="https://instagram.com/ravenchauffeur" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="/assets/icons/insta2.png" alt="Instagram">
+          </a>
+          <a class="menu-icon" href="https://wa.me/353877844783?text=Hello%20I%20would%20like%20information%20about%20Raven%20Chauffeur%20services"target="_blank" rel="noopener" aria-label="WhatsApp">
+            <img src="/assets/icons/whatsapp.png" alt="WhatsApp">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
