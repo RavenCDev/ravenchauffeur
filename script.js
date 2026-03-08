@@ -86,6 +86,24 @@ function setupOverlayMenu() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeMenu();
   });
+
+      // submenu mobile
+  menu.querySelectorAll(".menu-parent").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const group = btn.closest(".menu-group");
+      const isOpen = group.classList.contains("is-open");
+
+      group.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", String(!isOpen));
+
+      const icon = btn.querySelector(".menu-parent__icon");
+      if (icon) icon.textContent = isOpen ? "+" : "–";
+    });
+  });
+
+
+
+
 }
 
 function setupYear() {
@@ -95,7 +113,7 @@ function setupYear() {
 
 (async () => {
   const isInPagesFolder = window.location.pathname.includes("/pages/");
-  const rel = isInPagesFolder ? ".." : ".";
+  const rel =  ".." ;
 
   await injectPartial("site-header", `${rel}/partials/header.html`);
   await injectPartial("site-footer", `${rel}/partials/footer.html`);
