@@ -65,7 +65,6 @@ function setupOverlayMenu() {
   }
 
   burger.addEventListener("click", () => {
-    // toggle (se já estiver aberto, fecha)
     if (menu.classList.contains("is-open")) closeMenu();
     else openMenu();
   });
@@ -77,7 +76,7 @@ function setupOverlayMenu() {
     if (e.target === menu) closeMenu();
   });
 
-  // fecha ao clicar em link
+  // fecha ao clicar em links normais
   menu.querySelectorAll("a").forEach((a) => {
     a.addEventListener("click", closeMenu);
   });
@@ -87,7 +86,7 @@ function setupOverlayMenu() {
     if (e.key === "Escape") closeMenu();
   });
 
-      // submenu mobile
+  // submenu mobile
   menu.querySelectorAll(".menu-parent").forEach((btn) => {
     btn.addEventListener("click", () => {
       const group = btn.closest(".menu-group");
@@ -100,10 +99,6 @@ function setupOverlayMenu() {
       if (icon) icon.textContent = isOpen ? "+" : "–";
     });
   });
-
-
-
-
 }
 
 function setupYear() {
@@ -111,9 +106,73 @@ function setupYear() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
+function setupFormspreeAjax() {
+  const forms = document.querySelectorAll("#quoteForm, #contactForm");
+  const modal = document.getElementById("luxuryModal");
+
+  if (!forms.length) return;
+
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const successMsg = form.querySelector(".form-success");
+      const noteMsg = form.querySelector(".form-note");
+
+      const originalBtnText = submitBtn ? submitBtn.textContent : "";
+
+      try {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending...";
+        }
+
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          form.reset();
+
+          if (noteMsg) noteMsg.hidden = true;
+          if (successMsg) successMsg.hidden = false;
+
+          if (modal) {
+            modal.classList.add("active");
+
+            setTimeout(() => {
+              modal.classList.remove("active");
+            }, 3000);
+          }
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      } catch (error) {
+        alert("Unable to send your request right now. Please try again.");
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+      }
+    });
+  });
+}
+
 (async () => {
-  const isInPagesFolder = window.location.pathname.includes("/pages/");
-  const rel =  ".." ;
+  const isRoot =
+    window.location.pathname === "/" ||
+    window.location.pathname.endsWith("/index.html") ||
+    window.location.pathname.split("/").filter(Boolean).length === 0;
+
+  const rel = "..";
 
   await injectPartial("site-header", `${rel}/partials/header.html`);
   await injectPartial("site-footer", `${rel}/partials/footer.html`);
@@ -124,6 +183,6 @@ function setupYear() {
 
   // Agora que o header existe no DOM, ativa menu
   setupOverlayMenu();
-
   setupYear();
+  setupFormspreeAjax();
 })();

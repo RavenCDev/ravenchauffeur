@@ -90,7 +90,7 @@
           <h2 class="contact-form__title">Send Us a Message</h2>
 
           <!-- Formspree: replace FORM_ACTION -->
-          <form action="https://formspree.io/f/xreyeajp" method="POST">
+          <form id="contactForm" action="https://formspree.io/f/xreyeajp" method="POST">
             <label>
               Your Name
               <input name="name" type="text" placeholder="John Doe" required />
@@ -146,6 +146,8 @@
 
             <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" />
             <button class="btn btn--gold w-full" type="submit">Send Message</button>
+            <p class="form-note muted" id="formNote">We typically reply quickly during business hours.</p>
+            <p class="form-success" id="formSuccess" hidden>Thanks — we received your request. We’ll reply shortly.</p>
           </form>
         </div>
       </div>
