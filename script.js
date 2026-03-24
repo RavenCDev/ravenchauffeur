@@ -101,92 +101,6 @@ function setupOverlayMenu() {
   });
 }
 
-function setupYear() {
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-}
-
-function setupFormspreeAjax() {
-  const forms = document.querySelectorAll("#quoteForm, #contactForm");
-  const modal = document.getElementById("luxuryModal");
-
-  if (!forms.length) return;
-
-  forms.forEach((form) => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const successMsg = form.querySelector(".form-success");
-      const noteMsg = form.querySelector(".form-note");
-
-      const originalBtnText = submitBtn ? submitBtn.textContent : "";
-
-      try {
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Sending...";
-        }
-
-        const formData = new FormData(form);
-
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: {
-            Accept: "application/json",
-          },
-        });
-
-        if (response.ok) {
-          form.reset();
-
-          if (noteMsg) noteMsg.hidden = true;
-          if (successMsg) successMsg.hidden = false;
-
-          if (modal) {
-            modal.classList.add("active");
-
-            setTimeout(() => {
-              modal.classList.remove("active");
-            }, 3000);
-          }
-        } else {
-          alert("Something went wrong. Please try again.");
-        }
-      } catch (error) {
-        alert("Unable to send your request right now. Please try again.");
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText;
-        }
-      }
-    });
-  });
-}
-
-(async () => {
-  const isRoot =
-    window.location.pathname === "/" ||
-    window.location.pathname.endsWith("/index.html") ||
-    window.location.pathname.split("/").filter(Boolean).length === 0;
-
-  const rel = "..";
-
-  await injectPartial("site-header", `${rel}/partials/header.html`);
-  await injectPartial("site-footer", `${rel}/partials/footer.html`);
-
-  // Corrige paths no GitHub Pages
-  const base = getBasePath();
-  prefixRootPaths(base);
-
-  // Agora que o header existe no DOM, ativa menu
-  setupOverlayMenu();
-  setupYear();
-  setupFormspreeAjax();
-})();
-
 
 //SLIDES WALKING 
 
@@ -278,22 +192,92 @@ function setupPremiumSlider() {
   startAutoplay();
 }
 
+
+function setupYear() {
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+}
+
+function setupFormspreeAjax() {
+  const forms = document.querySelectorAll("#quoteForm, #contactForm");
+  const modal = document.getElementById("luxuryModal");
+
+  if (!forms.length) return;
+
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const successMsg = form.querySelector(".form-success");
+      const noteMsg = form.querySelector(".form-note");
+
+      const originalBtnText = submitBtn ? submitBtn.textContent : "";
+
+      try {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending...";
+        }
+
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          form.reset();
+
+          if (noteMsg) noteMsg.hidden = true;
+          if (successMsg) successMsg.hidden = false;
+
+          if (modal) {
+            modal.classList.add("active");
+
+            setTimeout(() => {
+              modal.classList.remove("active");
+            }, 3000);
+          }
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      } catch (error) {
+        alert("Unable to send your request right now. Please try again.");
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+      }
+    });
+  });
+}
+
 (async () => {
   const isRoot =
     window.location.pathname === "/" ||
     window.location.pathname.endsWith("/index.html") ||
     window.location.pathname.split("/").filter(Boolean).length === 0;
 
-  const rel = isRoot ? "." : "..";
+  const rel = "..";
 
   await injectPartial("site-header", `${rel}/partials/header.html`);
   await injectPartial("site-footer", `${rel}/partials/footer.html`);
 
+  // Corrige paths no GitHub Pages
   const base = getBasePath();
   prefixRootPaths(base);
 
+  // Agora que o header existe no DOM, ativa menu
   setupOverlayMenu();
   setupYear();
   setupFormspreeAjax();
   setupPremiumSlider();
 })();
+
+
