@@ -186,3 +186,114 @@ function setupFormspreeAjax() {
   setupYear();
   setupFormspreeAjax();
 })();
+
+
+//SLIDES WALKING 
+
+function setupPremiumSlider() {
+  const slider = document.querySelector(".premium-slider");
+  if (!slider) return;
+
+  const slides = Array.from(slider.querySelectorAll(".premium-slide"));
+  const dots = Array.from(slider.querySelectorAll(".premium-slider__dot"));
+  const prevBtn = slider.querySelector(".premium-slider__btn--prev");
+  const nextBtn = slider.querySelector(".premium-slider__btn--next");
+
+  if (!slides.length) return;
+
+  let current = 0;
+  let autoplay = null;
+  let startX = 0;
+  let endX = 0;
+
+  function goToSlide(index) {
+    slides[current].classList.remove("is-active");
+    if (dots[current]) dots[current].classList.remove("is-active");
+
+    current = (index + slides.length) % slides.length;
+
+    slides[current].classList.add("is-active");
+    if (dots[current]) dots[current].classList.add("is-active");
+  }
+
+  function nextSlide() {
+    goToSlide(current + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(current - 1);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplay = setInterval(nextSlide, 4000);
+  }
+
+  function stopAutoplay() {
+    if (autoplay) {
+      clearInterval(autoplay);
+      autoplay = null;
+    }
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      nextSlide();
+      startAutoplay();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      prevSlide();
+      startAutoplay();
+    });
+  }
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      goToSlide(index);
+      startAutoplay();
+    });
+  });
+
+  slider.addEventListener("mouseenter", stopAutoplay);
+  slider.addEventListener("mouseleave", startAutoplay);
+
+  slider.addEventListener("touchstart", (e) => {
+    startX = e.changedTouches[0].clientX;
+  }, { passive: true });
+
+  slider.addEventListener("touchend", (e) => {
+    endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+      startAutoplay();
+    }
+  }, { passive: true });
+
+  startAutoplay();
+}
+
+(async () => {
+  const isRoot =
+    window.location.pathname === "/" ||
+    window.location.pathname.endsWith("/index.html") ||
+    window.location.pathname.split("/").filter(Boolean).length === 0;
+
+  const rel = isRoot ? "." : "..";
+
+  await injectPartial("site-header", `${rel}/partials/header.html`);
+  await injectPartial("site-footer", `${rel}/partials/footer.html`);
+
+  const base = getBasePath();
+  prefixRootPaths(base);
+
+  setupOverlayMenu();
+  setupYear();
+  setupFormspreeAjax();
+  setupPremiumSlider();
+})();

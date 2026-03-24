@@ -57,7 +57,7 @@
 
 
 
-    <!-- WHY -->
+  <!-- WHY -->
     <section class="section">
       <div class="container grid-2">
         <div>
@@ -74,13 +74,34 @@
           </div>
         </div>
 
-        <div class="card card--image">
-          <img src="assets/1234.png" alt="Raven Mercedes vehicle in Dublin" />
-          <div class="card__overlay">
-            <p class="card__title">Mercedes Executive Vehicle</p>
-            <p class="card__text">Spacious. Comfortable. Discreet.</p>
+          <div class="card card--image premium-slider" aria-label="Raven vehicle gallery">
+            <div class="premium-slider__track">
+              <img src="assets/vanIndexDriver.jpeg" class="premium-slide is-active" alt="Raven Mercedes executive vehicle parked in Dublin" />
+              <img src="assets/vanindexnature.png" class="premium-slide" alt="Raven chauffeur vehicle on the road in Ireland" />
+              <img src="assets/index3slide.jpeg" class="premium-slide" alt="Luxury chauffeur vehicle exterior detail" />
+              <img src="assets/index4slide.jpeg" class="premium-slide" alt="Premium Mercedes chauffeur vehicle for airport transfers" />
+            </div>
+
+            <button class="premium-slider__btn premium-slider__btn--prev" type="button" aria-label="Previous image">
+              &#10094;
+            </button>
+            <button class="premium-slider__btn premium-slider__btn--next" type="button" aria-label="Next image">
+              &#10095;
+            </button>
+
+            <div class="premium-slider__dots" aria-label="Slider navigation">
+              <button class="premium-slider__dot is-active" type="button" aria-label="Go to image 1"></button>
+              <button class="premium-slider__dot" type="button" aria-label="Go to image 2"></button>
+              <button class="premium-slider__dot" type="button" aria-label="Go to image 3"></button>
+              <button class="premium-slider__dot" type="button" aria-label="Go to image 4"></button>
+            </div>
+
+            <div class="card__overlay">
+              <p class="card__title">Mercedes Executive Vehicle</p>
+              <p class="card__text">Spacious. Comfortable. Discreet.</p>
+            </div>
           </div>
-        </div>
+      </div>
       </div>
     </section>
 
@@ -109,7 +130,7 @@
         </article>
 
         <article class="service">
-            <img src="assets/corporate2.png" alt="Corporate Travel" />
+            <img src="assets/vanIndexDriver.jpeg" alt="Corporate Travel" />
             <h3>Business & Events</h3>
             <p class="muted">Executive travel, meetings, conferences and private events — discreet and punctual</p>
             <a class="btn btn--outline" href="/business-events/index.html">Learn more</a>
